@@ -9,6 +9,10 @@ const dotenv = require("dotenv");
 const bodyParser = require( 'body-parser');
 const routes = require('./routes/auth');
 const rooms = require('./routes/rooms');
+const messages = require('./routes/message')
+const Message = require("./model/messages");
+const User = require("./model/user");
+const Room = require("./model/room");
 
 const app = express(); 
 const server = http.createServer(app);
@@ -61,7 +65,7 @@ app.get('/', (req, res) => {
 
 
 app.use("/api/auth/", routes);
-
+app.use("/api/messages/", messages);
 
 // checking the session before accessing the rooms
 app.use((req, res, next) => {
@@ -72,7 +76,6 @@ app.use((req, res, next) => {
   }
 });
 app.use("/api/rooms/", rooms);
-
 
 
 // Start the server
@@ -98,6 +101,7 @@ io.use((socket, next) => {
   }
 })
 
+
 io.on('connection', (socket) => {
   let room;
   let userName;
@@ -108,18 +112,31 @@ io.on('connection', (socket) => {
     room = data.room;
     userName = data.username;
     console.log(`user ${userName} is joined to room ${room}`);
-    io.emit('message', {message: `${userName} has joined the room`, room: `${room}`});
+    io.emit('message', {message: `${userName} has joined the room`, room: room});
   });
 
-  socket.on('message', ({message, username}) => {
+  socket.on('message', async ({message, username}) => {
     // a user sends a message to the room
-    io.emit('message', {message: `${userName} : ${message}`, room: `${room}`}); // This line broadcasts the message to all clients
+    io.emit('message', {message: `${message}`, room: room}); // This line broadcasts the message to all clients
     console.log(`Message sent by ${username}: ${message}`);
+
+    try {
+      const user = await User.findOne({username: username});
+      const UserRoom = await Room.findOne({name: room})
+      const newMessage = new Message({
+          message: {text: message},
+          sender: user._id,
+          room: UserRoom,
+      });
+      await newMessage.save();
+  } catch(err) {
+      console.log('Error saving message:', err);
+  }
 });
 
 socket.on('leave', (data) => {
   console.log(`user ${data.username} left room ${data.room}`);
-  io.emit('message', {message: `${data.username} has left the room`, room: `${room}`});
+  io.emit('message', {message: `${data.username} has left the room`, room: room});
 });
 
 

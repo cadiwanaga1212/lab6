@@ -8,18 +8,35 @@ class Chatroom extends React.Component{
     constructor(props){
         super(props);
         this.socket = io('http://localhost:3001');
+        this.messagesEndRef = React.createRef();
         this.state = {
             messages: [], // for storing the chat messages
             messageInput: "", // for storing the current input message
+            loading: true,
         };
     }
 
     componentDidMount() {
+        // Fetch messages from the server
+        fetch(this.props.server_url + `/api/messages/${this.props.room}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }    
+        }).then((res) => {
+            res.json().then((data) => {
+                this.setState({messages:[...data, ...this.state.messages], loading: false})
+            });
+        });
+
         this.socket.emit('join',{room: this.props.room,
                                  username: this.props.username})
 
         this.socket.on('message', message => {
-            this.setState({ messages: [message, ...this.state.messages] });
+            if(message.room === this.props.room){
+            this.setState({ messages: [...this.state.messages, message.message] });
+        }
         });
     }
 
@@ -32,7 +49,7 @@ class Chatroom extends React.Component{
 handleMessageSend = () => {
     if (this.state.messageInput !== "") {
         const payload = {
-            message: this.state.messageInput,
+            message:  this.props.username + ': ' + this.state.messageInput,
             username: this.props.username,
         };
 
@@ -49,7 +66,18 @@ handleMessageSend = () => {
         this.props.changeScreen("lobby");
     }
 
+    scrollToBottom = () => {
+        this.messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+    
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }    
+
     render(){
+
+        if(this.state.loading) return <div>Loading...</div>
+
         return(
             <Box display="flex" flexDirection="column" height="100vh">
                 <Box p={2} display="flex" justifyContent="center" alignItems="center">
@@ -63,13 +91,14 @@ handleMessageSend = () => {
                 {/* Message display area */}
                 <Box flexGrow={1} overflow="auto" p={2}>
                     <List>
-                        {this.state.messages.filter(message => message.room === this.props.room).map((message, index) => {
+                        {this.state.messages.map((message, index) => {
                             return (
                                 <ListItem key={index}>
-                                    <ListItemText primary={`${message.message}`} />
+                                    <ListItemText primary={`${message}`} />
                                 </ListItem>
                             )
                         })}
+                        <div ref={this.messagesEndRef} />
                     </List>
                 </Box>
                 {/* Input field */}
