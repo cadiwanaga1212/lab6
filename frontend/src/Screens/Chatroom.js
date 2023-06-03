@@ -12,6 +12,7 @@ class Chatroom extends React.Component{
         this.state = {
             messages: [], // for storing the chat messages
             messageInput: "", // for storing the current input message
+            searchInput: "",
             loading: true,
         };
     }
@@ -74,12 +75,29 @@ handleMessageSend = () => {
         this.scrollToBottom();
     }    
 
+    handleSearchChange = (event) => {
+        this.setState({ searchInput: event.target.value });
+    }
+
     render(){
 
         if(this.state.loading) return <div>Loading...</div>
 
+        const filteredMessages = this.state.messages.filter(message => 
+            message.toLowerCase().includes(this.state.searchInput.toLowerCase())
+        );
+
         return(
             <Box display="flex" flexDirection="column" height="100vh">
+                <Box p={2}>
+                    <TextField
+                        fullWidth
+                        variant="standard"
+                        placeholder="Search messages"
+                        value={this.state.searchInput}
+                        onChange={this.handleSearchChange}
+                    />
+                </Box>
                 <Box p={2} display="flex" justifyContent="center" alignItems="center">
                     <IconButton color="primary" aria-label="Go back" component="span" onClick={this.handleBackClick}>
                         <ArrowBackIcon />
@@ -91,7 +109,7 @@ handleMessageSend = () => {
                 {/* Message display area */}
                 <Box flexGrow={1} overflow="auto" p={2}>
                     <List>
-                        {this.state.messages.map((message, index) => {
+                        {filteredMessages.map((message, index) => {
                             return (
                                 <ListItem key={index}>
                                     <ListItemText primary={`${message}`} />
