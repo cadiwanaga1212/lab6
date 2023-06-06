@@ -53,7 +53,7 @@ export const getDesignTokens = (mode) => ({
                 text: {
                     primary: "#e2e2e2",
                     gray: "#808080"
-                }
+                },
             }
         )
     },

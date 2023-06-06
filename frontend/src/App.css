@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.light-mode {
+  background-image: url('../src/images/light-background.png');
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.dark-mode {
+  background-image: url('../src/images/dark-background.png');
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

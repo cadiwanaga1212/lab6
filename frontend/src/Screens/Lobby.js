@@ -195,7 +195,7 @@ class Lobby extends react.Component {
     render(){
         return(
             <div>
-                <h1>Lobby</h1>
+                <h1 style={{marginTop: '0%',paddingTop: '6%'}}>Lobby</h1>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <div >
