@@ -93,7 +93,7 @@ render() {
             </Box>;
     }
     return(
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, m: 4 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, m: 4, marginTop: '0%',paddingTop: '6%'}}>
             <Typography variant="h3" component="h1"> Welcome to Our Messaging App! </Typography>
             <Typography variant="subtitle1">Stay connected with your friends and colleagues in real-time</Typography>
             <Box sx={{ width: '100%', maxWidth: 400 }}>
