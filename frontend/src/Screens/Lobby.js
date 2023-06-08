@@ -196,20 +196,22 @@ class Lobby extends react.Component {
         return(
             <div>
                 <h1 style={{marginTop: '0%',paddingTop: '6%', textAlign: 'left', marginLeft: '10%'}}>Lobby</h1>
-                <Grid container spacing={1} style={{width: '1100px', height: '600px', position: 'absolute', marginLeft: '100px'}}>
+                <Grid container spacing={1} style={{width: '1230px', height: '600px', position: 'absolute', marginLeft: '100px'}}>
                     <Grid item xs={12}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                             <Button color='secondary' style={{position: 'relative', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleCreateRoom}>
                                 Create Room
                             </Button>
                             {this.state.createFormVisible && 
+                                <div style={{ position: 'relative' }}>
+                                    <div style={{ backgroundColor: 'green', position: 'absolute', marginLeft: '50px', marginTop: '50px',width: '50px',zIndex: -1 }}></div>
                                 <Form
                                     type='Create Room'
                                     fields={['name']}
                                     submit={this.createRoom} // replace with the function that sends a request to create a room
                                     close={this.handleCreateRoom}
-                                    style={{backgroundColor: 'green'}}
                                 />
+                                </div>
                             }
                             <br/>
                             <Button style={{position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleJoinRoom}>
@@ -241,14 +243,22 @@ class Lobby extends react.Component {
                         </Button>
                         </div>
                     </Grid>
-                    <Grid item xs={12} style={{position: 'relative', marginLeft: '660px', marginTop: '-400px', width: '30%'}}>
+                    <Grid item xs={12} style={{ position: 'relative', marginLeft: '660px', width: '30%', boxSizing: 'content-box', marginTop: '-550px'}}> 
+                    <div style={{ paddingBottom: '15px',paddingTop: '5px', overflowY: 'auto', maxHeight: '500px', backgroundColor: 'rgba(255, 255, 255, .4)', maxWidth: '600px', border: '1px solid white'}}>
+                    <h2>Chatrooms</h2>
                     {this.state.rooms ? this.state.rooms.map((room) => {
                     return (
-                        <Button style={{marginRight: '5%', position: 'relative', marginBottom: '5%'}} variant="contained" key={"roomKey"+room._id} onClick={() => this.props.changeScreen("chatroom", room.name)}>
+                        <Button style={{position: 'relative', margin: '15px', height: '50px', fontSize: '15px', padding: '25px', width: '150px',  overflowY: 'auto',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis'}} 
+                        variant="contained" 
+                        key={"roomKey"+room._id} 
+                        onClick={() => this.props.changeScreen("chatroom", room.name)}>
                             {room.name}
                         </Button>
                     )
                     }) : "loading..."}
+                    </div>
                     </Grid>
                 </Grid>
                 <Snackbar
