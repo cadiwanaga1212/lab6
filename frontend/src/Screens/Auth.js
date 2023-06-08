@@ -78,7 +78,7 @@ render() {
         let fields = [];
         if (this.state.selectedForm === "login") {
             fields = ['username', 'password'];
-            display = <Form fields={fields} close={this.closeForm} type="login" submit={this.login} key={this.state.selectedForm}/>;
+            display = <Form fields={fields} close={this.closeForm} type="login" submit={this.login} key={this.state.selectedForm} style={{marginLeft: '300px', marginTop: '-80px'}}/>;
         }
         else if (this.state.selectedForm === "register") {
             fields = [ 'username', 'password', 'name'];
@@ -87,16 +87,18 @@ render() {
     }
     else {
         display = 
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                <Button variant="contained" color="primary" onClick={() => this.setState({showForm: true, selectedForm:"login"})}> Login </Button>
-                <Button variant="contained" color="secondary" onClick={() => this.setState({showForm: true, selectedForm: "register"})}> Register </Button>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, margin: '15%', position: 'relative'}}>
+                <br/>
+                <Button variant="contained" color="primary" onClick={() => this.setState({showForm: true, selectedForm:"login"})} style={{width: '190px', height: '70px', position: 'relative'}}> Login </Button>
+                <br/>
+                <Button variant="contained" color="secondary" onClick={() => this.setState({showForm: true, selectedForm: "register"})} style={{width: '190px', height: '70px', position: 'relative'}}> Register </Button>
             </Box>;
     }
     return(
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, m: 4, marginTop: '0%',paddingTop: '6%'}}>
             <Typography variant="h3" component="h1"> Welcome to Our Messaging App! </Typography>
             <Typography variant="subtitle1">Stay connected with your friends and colleagues in real-time</Typography>
-            <Box sx={{ width: '100%', maxWidth: 400 }}>
+            <Box sx={{ width: '100%', maxWidth: 400}}>
                 {display}
             </Box>
         </Box>

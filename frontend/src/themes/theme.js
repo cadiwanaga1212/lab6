@@ -17,12 +17,12 @@ export const getDesignTokens = (mode) => ({
             {
                 primary: {
                     // light: will be calculated from palette.primary.main,
-                    main: '#6b95f5',
+                    main: '#A7CBFF',
                     // main: '#fff',
-                    contrastText: "#fff"
+                    // contrastText: "#fff"
                 },
                 secondary: {
-                    main: '#e06c9e',
+                    main: '#F1A7C1',
                 },
                 background: {
                     panel: '#e8e8e8',

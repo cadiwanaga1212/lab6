@@ -195,11 +195,11 @@ class Lobby extends react.Component {
     render(){
         return(
             <div>
-                <h1 style={{marginTop: '0%',paddingTop: '6%'}}>Lobby</h1>
-                <Grid container spacing={3}>
+                <h1 style={{marginTop: '0%',paddingTop: '6%', textAlign: 'left', marginLeft: '10%'}}>Lobby</h1>
+                <Grid container spacing={1} style={{width: '1100px', height: '600px', position: 'absolute', marginLeft: '100px'}}>
                     <Grid item xs={12}>
-                        <div >
-                            <Button style={{backgroundColor: "green"}}variant="contained" onClick={this.handleCreateRoom}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                            <Button color='secondary' style={{position: 'relative', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleCreateRoom}>
                                 Create Room
                             </Button>
                             {this.state.createFormVisible && 
@@ -208,10 +208,11 @@ class Lobby extends react.Component {
                                     fields={['name']}
                                     submit={this.createRoom} // replace with the function that sends a request to create a room
                                     close={this.handleCreateRoom}
+                                    style={{backgroundColor: 'green'}}
                                 />
                             }
-
-                            <Button style={{backgroundColor: "green"}} variant="contained" onClick={this.handleJoinRoom}>
+                            <br/>
+                            <Button style={{position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleJoinRoom}>
                                 Join Room
                             </Button>
                             {this.state.joinFormVisible && 
@@ -222,8 +223,8 @@ class Lobby extends react.Component {
                                     close={this.handleJoinRoom}
                                 />
                             }
-
-                            <Button style={{backgroundColor: "red"}} variant="contained" onClick={this.handleDeleteRoom}>
+                            <br/>
+                            <Button style={{backgroundColor: "rgba(255, 0, 0,.3)", position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleDeleteRoom}>
                                 Leave Room
                             </Button>
                             {this.state.deleteFormVisible && 
@@ -234,15 +235,16 @@ class Lobby extends react.Component {
                                     close={this.handleDeleteRoom}
                                 />
                             }
-                            <Button variant="contained" onClick={this.logout}>
+                            <br/>
+                            <Button variant="contained" onClick={this.logout} style={{backgroundColor: 'gray', position: 'static', margin: '20px', width: '190px', height: '70px'}}>
                             Logout
                         </Button>
                         </div>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} style={{position: 'relative', marginLeft: '660px', marginTop: '-400px', width: '30%'}}>
                     {this.state.rooms ? this.state.rooms.map((room) => {
                     return (
-                        <Button variant="contained" key={"roomKey"+room._id} onClick={() => this.props.changeScreen("chatroom", room.name)}>
+                        <Button style={{marginRight: '5%', position: 'relative', marginBottom: '5%'}} variant="contained" key={"roomKey"+room._id} onClick={() => this.props.changeScreen("chatroom", room.name)}>
                             {room.name}
                         </Button>
                     )
