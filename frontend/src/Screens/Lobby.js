@@ -226,7 +226,7 @@ class Lobby extends react.Component {
                                 />
                             }
                             <br/>
-                            <Button style={{backgroundColor: "rgba(255, 0, 0,.3)", position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleDeleteRoom}>
+                            <Button style={{backgroundColor: "rgba(255, 0, 0,.6)", position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleDeleteRoom}>
                                 Leave Room
                             </Button>
                             {this.state.deleteFormVisible && 
@@ -238,13 +238,13 @@ class Lobby extends react.Component {
                                 />
                             }
                             <br/>
-                            <Button variant="contained" onClick={this.logout} style={{backgroundColor: 'gray', position: 'static', margin: '20px', width: '190px', height: '70px'}}>
+                            <Button variant="contained" onClick={this.logout} style={{backgroundColor: 'rgba(128,128,128, .8)', position: 'static', margin: '20px', width: '190px', height: '70px'}}>
                             Logout
                         </Button>
                         </div>
                     </Grid>
                     <Grid item xs={12} style={{ position: 'relative', marginLeft: '660px', width: '30%', boxSizing: 'content-box', marginTop: '-550px'}}> 
-                    <div style={{ paddingBottom: '15px',paddingTop: '5px', overflowY: 'auto', maxHeight: '500px', backgroundColor: 'rgba(255, 255, 255, .4)', maxWidth: '600px', border: '1px solid white'}}>
+                    <div style={{ paddingBottom: '15px',paddingTop: '5px', overflowY: 'auto', maxHeight: '500px', backgroundColor: 'rgba(255, 255, 255, .15)', maxWidth: '600px', border: '1px solid white'}}>
                     <h2>Chatrooms</h2>
                     {this.state.rooms ? this.state.rooms.map((room) => {
                     return (

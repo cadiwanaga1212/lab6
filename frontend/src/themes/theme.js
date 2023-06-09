@@ -17,12 +17,12 @@ export const getDesignTokens = (mode) => ({
             {
                 primary: {
                     // light: will be calculated from palette.primary.main,
-                    main: '#A7CBFF',
+                    main: 'rgba(167, 203, 255, .7)',
                     // main: '#fff',
                     // contrastText: "#fff"
                 },
                 secondary: {
-                    main: '#F1A7C1',
+                    main: 'rgba(241, 167, 193, .8)',
                 },
                 background: {
                     panel: '#e8e8e8',
@@ -38,13 +38,13 @@ export const getDesignTokens = (mode) => ({
                 // palette values for dark mode
                 primary: {
                     // main: "#2fcd9a",
-                    main: "#1e8b69",
+                    main: "rgba(30, 139, 105, .7)",
                     dark: '#2baa76',
                     light: '#1e8b6930'
                 },
                 secondary: {
                     // main: '#ea6627',
-                    main: '#AA0063'
+                    main: 'rgba(170, 0, 99, .9)'
                 },
                 background: {
                     panel: '#414141',
