@@ -32,7 +32,7 @@ class Form extends react.Component{
 
     render(){
         return (
-            <div style={{marginLeft: '300px', marginTop: '-80px'}}>
+            <div style={{backgroundColor: 'rgba(255, 255, 255, .3)', border: '1px solid white', padding: '10px'}}>
                 <div>
                     <Button onClick={this.props.close}> x </Button>
                     <h3> {this.props.type} </h3>
@@ -51,7 +51,7 @@ class Form extends react.Component{
                             </div>
                         );
                     })}
-                    <input type="submit" style={{marginLeft: '100px', marginTop: '-25px', position: 'absolute'}}></input>
+                    <input type="submit" style={{marginLeft: '100px', marginTop: '-25px', position: 'absolute', padding: '5px'}}></input>
                 </form>
 
             </div>

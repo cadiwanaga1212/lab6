@@ -203,14 +203,15 @@ class Lobby extends react.Component {
                                 Create Room
                             </Button>
                             {this.state.createFormVisible && 
-                                <div style={{ position: 'relative' }}>
-                                    <div style={{ backgroundColor: 'green', position: 'absolute', marginLeft: '50px', marginTop: '50px',width: '50px',zIndex: -1 }}></div>
-                                <Form
-                                    type='Create Room'
-                                    fields={['name']}
-                                    submit={this.createRoom} // replace with the function that sends a request to create a room
-                                    close={this.handleCreateRoom}
-                                />
+                                <div style={{ position: 'relative' , marginLeft: '300px', marginTop: '-100px'}}>
+                                    {/* <div style={{position: 'absolute',width: '50px',zIndex: -1 ,marginLeft: '300px', marginTop: '-80px'}}> */}
+                                        <Form
+                                            type='Create Room'
+                                            fields={['name']}
+                                            submit={this.createRoom} // replace with the function that sends a request to create a room
+                                            close={this.handleCreateRoom}
+                                        />
+                                    {/* </div> */}
                                 </div>
                             }
                             <br/>
@@ -218,24 +219,28 @@ class Lobby extends react.Component {
                                 Join Room
                             </Button>
                             {this.state.joinFormVisible && 
+                            <div style={{ position: 'relative' , marginLeft: '300px', marginTop: '-100px'}}>
                                 <Form
                                     type='Join Room'
                                     fields={['roomName']}
                                     submit={this.joinRoom} // replace with the function that sends a request to join a room
                                     close={this.handleJoinRoom}
                                 />
+                                </div>
                             }
                             <br/>
                             <Button style={{backgroundColor: "rgba(255, 0, 0,.6)", position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleDeleteRoom}>
                                 Leave Room
                             </Button>
                             {this.state.deleteFormVisible && 
+                            <div style={{ position: 'relative' , marginLeft: '300px', marginTop: '-100px'}}>
                                 <Form
                                     type='Delete Room'
                                     fields={['roomName']}
                                     submit={this.deleteRoom} // replace with the function that sends a request to delete a room
                                     close={this.handleDeleteRoom}
                                 />
+                                </div>
                             }
                             <br/>
                             <Button variant="contained" onClick={this.logout} style={{backgroundColor: 'rgba(128,128,128, .8)', position: 'static', margin: '20px', width: '190px', height: '70px'}}>

@@ -112,13 +112,16 @@ handleMessageSend = () => {
                         {filteredMessages.map((message, index) => {
                             return (
                                 <ListItem key={index}>
-                                    <ListItemText primary={`${message}`} />
+                                    <div style={{padding: '8px', display: 'inline-block'}}>
+                                        <ListItemText primary={`${message}`} />
+                                    </div>
                                 </ListItem>
                             )
                         })}
                         <div ref={this.messagesEndRef} />
                     </List>
                 </Box>
+                
                 {/* Input field */}
                 <Box p={2} borderTop={1} borderColor="divider" bgcolor="background.paper">
                     <TextField

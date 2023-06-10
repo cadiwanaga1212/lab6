@@ -42,9 +42,9 @@
 
   min-height: 100vh;
 
-  background-size: cover;
+  background-size: auto;
 
-  background-position: center;
+  background-position: left;
 
   background-repeat: no-repeat;
 
@@ -56,9 +56,9 @@
 
   min-height: 100vh;
 
-  background-size: cover;
+  background-size: auto;
 
-  background-position: center;
+  background-position: left;
 
   background-repeat: no-repeat;
 

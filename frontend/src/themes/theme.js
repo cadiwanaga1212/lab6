@@ -22,7 +22,7 @@ export const getDesignTokens = (mode) => ({
                     // contrastText: "#fff"
                 },
                 secondary: {
-                    main: 'rgba(241, 167, 193, .8)',
+                    main: 'rgba(241, 167, 193, .95)',
                 },
                 background: {
                     panel: '#e8e8e8',
@@ -44,7 +44,7 @@ export const getDesignTokens = (mode) => ({
                 },
                 secondary: {
                     // main: '#ea6627',
-                    main: 'rgba(170, 0, 99, .9)'
+                    main: 'rgba(170, 0, 99, .95)'
                 },
                 background: {
                     panel: '#414141',
