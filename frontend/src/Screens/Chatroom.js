@@ -3,6 +3,7 @@ import { Button, TextField, List, ListItem, ListItemText, Typography, IconButton
 import { Box } from "@mui/system";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {io} from 'socket.io-client';
+import VotersC from './Voter_c.js';
 
 class Chatroom extends React.Component{
     constructor(props){
@@ -113,7 +114,9 @@ handleMessageSend = () => {
                             return (
                                 <ListItem key={index}>
                                     <ListItemText primary={`${message}`} />
+                                    <VotersC></VotersC>
                                 </ListItem>
+                            
                             )
                         })}
                         <div ref={this.messagesEndRef} />
@@ -132,8 +135,10 @@ handleMessageSend = () => {
                                 <Button onClick={this.handleMessageSend}>
                                     Send
                                 </Button>
+                                
                             ),
                         }}
+                        
                     />
                 </Box>
             </Box>
