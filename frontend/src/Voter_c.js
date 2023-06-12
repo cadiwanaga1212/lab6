@@ -1,33 +1,32 @@
 import React from "react";
-import img1 from './images/like.jpg';
-import img2 from './images/dislike.jpg';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
-function upVote(item) {
-    item.state.score++;
-    item.setState({ state: item.state });
-}
+class VotersC extends React.Component {
+    // It's a good practice to put all your state in one single state object
+    state = {
+        score: 0,
+        score1: 0,
+    };
 
-function downVote(item) {
-    item.state.score1++;
-    item.setState({ state: item.state });
-}
+    // These functions update the state of this component
+    upVote = () => {
+        this.setState(prevState => ({ score: prevState.score + 1 }));
+    };
 
-class VotersC extends React.Component{
-    constructor() {
-        super();
-        this.state = {score: 0};
-    }
-    render(){
-        
-        return(
+    downVote = () => {
+        this.setState(prevState => ({ score1: prevState.score1 + 1 }));
+    };
+
+    render() {
+        return (
             <div>
-                <button id = "upvotebutton"
-                onClick={() => upVote(this)}
-                > <img src = {img1} alt="" style={{ transform: 'scale(0.1) translateX(-10px)' }}/> </button>
-                <div id="scoreStore">  {this.state.score}  </div>
-                <button id = "downvotebutton"
-                onClick={() => downVote(this)}> <img src = {img2} alt="" style={{ transform: 'scale(0.1) translateX(-10px)' }}/> </button>
-                <div id="scoreStore1">  {this.state.score1}  </div>
+                {/* onClick calls the upVote function which updates the state */}
+                <ThumbUpIcon id="upvotebutton" onClick={this.upVote}> 
+                </ThumbUpIcon> {this.state.score}
+                {/* onClick calls the downVote function which updates the state */}
+                <ThumbDownIcon id="downvotebutton" onClick={this.downVote}> 
+                </ThumbDownIcon>{this.state.score1}
             </div>
         )
     }

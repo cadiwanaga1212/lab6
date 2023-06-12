@@ -3,7 +3,7 @@ import { Button, TextField, List, ListItem, ListItemText, Typography, IconButton
 import { Box } from "@mui/system";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {io} from 'socket.io-client';
-import VotersC from './Voter_c.js';
+import VotersC from '../Voter_c.js';
 
 class Chatroom extends React.Component{
     constructor(props){
