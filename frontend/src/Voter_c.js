@@ -1,5 +1,6 @@
 import React from "react";
 import img1 from './images/like.jpg';
+import img2 from './images/dislike.jpg';
 
 function upVote(item) {
     item.state.score++;
@@ -22,10 +23,10 @@ class VotersC extends React.Component{
             <div>
                 <button id = "upvotebutton"
                 onClick={() => upVote(this)}
-                > <img src = {img1} alt=""/> </button>
+                > <img src = {img1} alt="" style={{ transform: 'scale(0.1) translateX(-10px)' }}/> </button>
                 <div id="scoreStore">  {this.state.score}  </div>
                 <button id = "downvotebutton"
-                onClick={() => downVote(this)}> <img src = {img1} alt=""/> </button>
+                onClick={() => downVote(this)}> <img src = {img2} alt="" style={{ transform: 'scale(0.1) translateX(-10px)' }}/> </button>
                 <div id="scoreStore1">  {this.state.score1}  </div>
             </div>
         )
