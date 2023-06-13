@@ -195,58 +195,75 @@ class Lobby extends react.Component {
     render(){
         return(
             <div>
-                <h1 style={{marginTop: '0%',paddingTop: '6%'}}>Lobby</h1>
-                <Grid container spacing={3}>
+                <h1 style={{marginTop: '0%',paddingTop: '6%', textAlign: 'left', marginLeft: '10%'}}>Lobby</h1>
+                <Grid container spacing={1} style={{width: '1230px', height: '600px', position: 'absolute', marginLeft: '100px'}}>
                     <Grid item xs={12}>
-                        <div >
-                            <Button style={{backgroundColor: "green"}}variant="contained" onClick={this.handleCreateRoom}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                            <Button color='secondary' style={{position: 'relative', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleCreateRoom}>
                                 Create Room
                             </Button>
                             {this.state.createFormVisible && 
-                                <Form
-                                    type='Create Room'
-                                    fields={['name']}
-                                    submit={this.createRoom} // replace with the function that sends a request to create a room
-                                    close={this.handleCreateRoom}
-                                />
+                                <div style={{ position: 'relative' , marginLeft: '300px', marginTop: '-100px'}}>
+                                    {/* <div style={{position: 'absolute',width: '50px',zIndex: -1 ,marginLeft: '300px', marginTop: '-80px'}}> */}
+                                        <Form
+                                            type='Create Room'
+                                            fields={['name']}
+                                            submit={this.createRoom} // replace with the function that sends a request to create a room
+                                            close={this.handleCreateRoom}
+                                        />
+                                    {/* </div> */}
+                                </div>
                             }
-
-                            <Button style={{backgroundColor: "green"}} variant="contained" onClick={this.handleJoinRoom}>
+                            <br/>
+                            <Button style={{position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleJoinRoom}>
                                 Join Room
                             </Button>
                             {this.state.joinFormVisible && 
+                            <div style={{ position: 'relative' , marginLeft: '300px', marginTop: '-100px'}}>
                                 <Form
                                     type='Join Room'
                                     fields={['roomName']}
                                     submit={this.joinRoom} // replace with the function that sends a request to join a room
                                     close={this.handleJoinRoom}
                                 />
+                                </div>
                             }
-
-                            <Button style={{backgroundColor: "red"}} variant="contained" onClick={this.handleDeleteRoom}>
+                            <br/>
+                            <Button style={{backgroundColor: "rgba(255, 0, 0,.6)", position: 'static', margin: '20px', width: '190px', height: '70px'}} variant="contained" onClick={this.handleDeleteRoom}>
                                 Leave Room
                             </Button>
                             {this.state.deleteFormVisible && 
+                            <div style={{ position: 'relative' , marginLeft: '300px', marginTop: '-100px'}}>
                                 <Form
                                     type='Delete Room'
                                     fields={['roomName']}
                                     submit={this.deleteRoom} // replace with the function that sends a request to delete a room
                                     close={this.handleDeleteRoom}
                                 />
+                                </div>
                             }
-                            <Button variant="contained" onClick={this.logout}>
+                            <br/>
+                            <Button variant="contained" onClick={this.logout} style={{backgroundColor: 'rgba(128,128,128, .8)', position: 'static', margin: '20px', width: '190px', height: '70px'}}>
                             Logout
                         </Button>
                         </div>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} style={{ position: 'relative', marginLeft: '660px', width: '30%', boxSizing: 'content-box', marginTop: '-550px'}}> 
+                    <div style={{ paddingBottom: '15px',paddingTop: '5px', overflowY: 'auto', maxHeight: '500px', backgroundColor: 'rgba(255, 255, 255, .15)', maxWidth: '600px', border: '1px solid white'}}>
+                    <h2>Chatrooms</h2>
                     {this.state.rooms ? this.state.rooms.map((room) => {
                     return (
-                        <Button variant="contained" key={"roomKey"+room._id} onClick={() => this.props.changeScreen("chatroom", room.name)}>
+                        <Button style={{position: 'relative', margin: '15px', height: '50px', fontSize: '15px', padding: '25px', width: '150px',  overflowY: 'auto',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis'}} 
+                        variant="contained" 
+                        key={"roomKey"+room._id} 
+                        onClick={() => this.props.changeScreen("chatroom", room.name)}>
                             {room.name}
                         </Button>
                     )
                     }) : "loading..."}
+                    </div>
                     </Grid>
                 </Grid>
                 <Snackbar

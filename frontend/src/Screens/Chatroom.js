@@ -13,6 +13,8 @@ class Chatroom extends React.Component{
             messages: [], // for storing the chat messages
             messageInput: "", // for storing the current input message
             searchInput: "",
+            editIndex: null, // keeps track of which message is currently being edited
+            messageId : null,
             loading: true,
         };
     }
@@ -36,8 +38,14 @@ class Chatroom extends React.Component{
 
         this.socket.on('message', message => {
             if(message.room === this.props.room){
-            this.setState({ messages: [...this.state.messages, message.message] });
+            this.setState({ messages: [...this.state.messages, message] });
         }
+        });
+
+        this.socket.on('edit', ({index, newMessage, id}) => {
+            let messages = [...this.state.messages];
+            messages[index].text = newMessage;
+            this.setState({ messages: messages, editIndex: null });
         });
     }
 
@@ -79,12 +87,22 @@ handleMessageSend = () => {
         this.setState({ searchInput: event.target.value });
     }
 
+    handleEditButtonClick = (index, id) => {
+        this.setState({ editIndex: index });
+        this.setState({ messageId: id});
+    }
+
+    // new method to handle when the save button is clicked
+    handleSaveButtonClick = () => {
+        this.socket.emit('edit', {index: this.state.editIndex, newMessage: this.state.messages[this.state.editIndex].text, id: this.state.messageId});
+    }
+
     render(){
 
         if(this.state.loading) return <div>Loading...</div>
 
         const filteredMessages = this.state.messages.filter(message => 
-            message.toLowerCase().includes(this.state.searchInput.toLowerCase())
+            message.text.toLowerCase().includes(this.state.searchInput.toLowerCase())
         );
 
         return(
@@ -108,13 +126,32 @@ handleMessageSend = () => {
                 </Box>
                 {/* Message display area */}
                 <Box flexGrow={1} overflow="auto" p={2}>
-                    <List>
+                <List>
                         {filteredMessages.map((message, index) => {
-                            return (
-                                <ListItem key={index}>
-                                    <ListItemText primary={`${message}`} />
-                                </ListItem>
-                            )
+                            if (index === this.state.editIndex) {
+                                return (
+                                    <ListItem key={index}>
+                                        <div style={{padding: '8px', display: 'inline-block'}}>
+                                            <TextField
+                                                value={message.text}
+                                                onChange={event => {
+                                                    let messages = [...this.state.messages];
+                                                    messages[index].text = event.target.value;
+                                                    this.setState({ messages: messages });
+                                                }}
+                                            />
+                                            <Button onClick={this.handleSaveButtonClick}>Save</Button>
+                                        </div>
+                                    </ListItem>
+                                );
+                            } else {
+                                return (
+                                    <ListItem key={index}>
+                                        <ListItemText primary={`${message.text}`} />
+                                        {message.username === this.props.username && <Button onClick={() => this.handleEditButtonClick(index, message.id)}>Edit</Button>}
+                                    </ListItem>
+                                );
+                            }
                         })}
                         <div ref={this.messagesEndRef} />
                     </List>

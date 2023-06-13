@@ -112,12 +112,11 @@ io.on('connection', (socket) => {
     room = data.room;
     userName = data.username;
     console.log(`user ${userName} is joined to room ${room}`);
-    io.emit('message', {message: `${userName} has joined the room`, room: room});
+    io.emit('message', {text: `${userName} has joined the room`, room: room});
   });
 
   socket.on('message', async ({message, username}) => {
     // a user sends a message to the room
-    io.emit('message', {message: `${message}`, room: room}); // This line broadcasts the message to all clients
     console.log(`Message sent by ${username}: ${message}`);
 
     try {
@@ -129,6 +128,7 @@ io.on('connection', (socket) => {
           room: UserRoom,
       });
       await newMessage.save();
+      io.emit('message', {text: `${message}`, room: room, username: username, id : newMessage._id}); // This line broadcasts the message to all clients
   } catch(err) {
       console.log('Error saving message:', err);
   }
@@ -136,7 +136,23 @@ io.on('connection', (socket) => {
 
 socket.on('leave', (data) => {
   console.log(`user ${data.username} left room ${data.room}`);
-  io.emit('message', {message: `${data.username} has left the room`, room: room});
+  io.emit('message', {text: `${data.username} has left the room`, room: room});
+});
+
+socket.on('edit', async ({index, newMessage, id}) => {
+  console.log(`Message edited by ${userName}: ${newMessage}`);
+
+  try {
+      // Assuming you store the messages in an array in the Room document.
+      // The message's position in the array is tracked by the client-side.
+      const UserMessage = await Message.findOne({_id: id});
+      UserMessage.message.text = newMessage;
+      await UserMessage.save();
+
+      io.emit('edit', {index: index, newMessage : newMessage, room: room});
+  } catch(err) {
+      console.log('Error updating message:', err);
+  }
 });
 
 
